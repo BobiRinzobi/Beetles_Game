@@ -12,9 +12,9 @@ class RegistrationViewModel : ViewModel() {
 
     fun loadData() {
 
-        if (_state.value == RegistrationState.Initial || _state.value == RegistrationState.Loading){
-            return
-        }
+//        if (_state.value == RegistrationState.Initial || _state.value == RegistrationState.Loading){
+//            return
+//        }
         // usecase с запросом к бд и в случае неудачи создаём нового user
         _state.value = RegistrationState.Content
 
