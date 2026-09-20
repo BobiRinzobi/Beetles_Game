@@ -9,31 +9,26 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7f995ce-7683-4a25-b42a-74fb3fbbee42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/data/RulesRepositoryImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/domain/model/GameRules.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/domain/repository/RulesRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/presentation/presenter/RulesViewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/presentation/ui/RulesScreen.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/raw/game_rules.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/sha1-checksums.bin" afterDir="false" />
+    <list default="true" id="a7f995ce-7683-4a25-b42a-74fb3fbbee42" name="Changes" comment="feat: added html file with rules for game &quot;beetles&quot;">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/data/AuthorsRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/domain/model/Author.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/domain/repository/AuthorsRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/adapter/AuthorsAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/presenter/AuthorsViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/ui/AuthorsScreen.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/author_danila.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/author_vlad.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/domain/model/GameRules.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/presentation/ui/RulesScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/presentation/ui/RulesScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/game_rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/game_rules.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +70,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="registration-head" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -116,12 +111,16 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "registration-head",
+    "git-widget-placeholder": "feat-rules",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/vlad/AndroidStudioProjects/Beetles_Game/app/src/main/res/drawable",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vlad\AndroidStudioProjects\Beetles_Game\app\src\main\res\drawable" />
+    </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="com.phoenix.beetles.feature.rules.presentation" />
     </key>
@@ -210,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789275379609</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: added html file with rules for game &quot;beetles&quot;">
+      <option name="closed" value="true" />
+      <created>1789897323545</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1789897323545</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,6 +230,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: added html file with rules for game &quot;beetles&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: added html file with rules for game &quot;beetles&quot;" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
