@@ -2,6 +2,7 @@ package com.phoenix.beetles.main
 
 import android.app.Application
 import com.phoenix.beetles.feature.authors.di.authorsModule
+import com.phoenix.beetles.feature.core.di.gameModule
 import com.phoenix.beetles.feature.registration.di.registrationModule
 import com.phoenix.beetles.feature.rules.di.rulesModule
 import com.phoenix.beetles.feature.settings.di.settingsModule
@@ -20,13 +21,11 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
 
             modules(
-                listOf(
-                    registrationModule,
-                    authorsModule,
-                    rulesModule,
-                    settingsModule
-
-                )
+                registrationModule,
+                authorsModule,
+                rulesModule,
+                settingsModule,
+                gameModule,
             )
         }
     }

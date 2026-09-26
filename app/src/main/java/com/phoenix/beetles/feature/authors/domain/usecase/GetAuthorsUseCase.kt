@@ -1,6 +1,6 @@
 package com.phoenix.beetles.feature.authors.domain.usecase
 
-import com.phoenix.beetles.feature.authors.domain.model.Author
+import com.phoenix.beetles.feature.authors.domain.entity.Author
 import com.phoenix.beetles.feature.authors.domain.repository.AuthorsRepository
 
 
