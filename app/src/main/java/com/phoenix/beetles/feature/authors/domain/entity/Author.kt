@@ -1,4 +1,4 @@
-package com.phoenix.beetles.feature.authors.domain.model
+package com.phoenix.beetles.feature.authors.domain.entity
 
 data class Author(
     val name: String,

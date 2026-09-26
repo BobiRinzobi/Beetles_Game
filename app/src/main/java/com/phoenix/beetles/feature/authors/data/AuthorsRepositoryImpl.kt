@@ -1,7 +1,7 @@
 package com.phoenix.beetles.feature.authors.data
 
 import com.phoenix.beetles.R
-import com.phoenix.beetles.feature.authors.domain.model.Author
+import com.phoenix.beetles.feature.authors.domain.entity.Author
 import com.phoenix.beetles.feature.authors.domain.repository.AuthorsRepository
 
 class AuthorsRepositoryImpl : AuthorsRepository {
