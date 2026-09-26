@@ -4,23 +4,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.phoenix.beetles.feature.authors.navigation.AuthorsRoute
-import com.phoenix.beetles.feature.registration.navigation.RegistrationRoute
-import com.phoenix.beetles.feature.rules.navigation.RulesRoute
-import com.phoenix.beetles.feature.settings.navigation.SettingRoule
 import kotlin.reflect.KClass
 
-
 enum class NavigationOptions(
-    val routeClass: KClass<*>,
-    val routeObject: Any,
+    val route: AppRoute,
     val title: String,
-    val icon: ImageVector
+    val icon: ImageVector,
 ) {
-    REGISTRATION(RegistrationRoute::class, RegistrationRoute, "Регистрация", Icons.Default.Face),
-    RULES(RulesRoute::class, RulesRoute, "Правила", Icons.Default.Info),
-    AUTHORS(AuthorsRoute::class, AuthorsRoute, "Авторы", Icons.Default.Person),
-    SETTINGS(SettingRoule::class, SettingRoule, "Настройки", Icons.Default.Settings)
+    REGISTRATION(AppRoute.Registration, "Регистрация", Icons.Default.Face),
+    RULES(AppRoute.Rules, "Правила", Icons.Default.Info),
+    AUTHORS(AppRoute.Authors, "Авторы", Icons.Default.Person),
+    SETTINGS(AppRoute.Settings, "Настройки", Icons.Default.Settings),
+    GAME(AppRoute.Game, "Игра", Icons.Default.PlayArrow);
+
+    val routeClass: KClass<out AppRoute> get() = route::class
 }
