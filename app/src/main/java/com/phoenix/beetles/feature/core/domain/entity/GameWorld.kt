@@ -13,7 +13,7 @@ class GameWorld(var bounds: Bounds) {
     }
 
     fun removeById(id: BugId) {
-        _bugs.removeAll { it.id == id }
+        _bugs.removeIf { it.id == id }
     }
 
     fun findBugAt(point: Position): Bug? =

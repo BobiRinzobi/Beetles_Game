@@ -5,7 +5,8 @@ class Bug(val id: BugId,
           val config: BugCfg,
           var position: Position,
           var speed: Speed,
-          var isAlive: Boolean = true)
+          var isAlive: Boolean = true,
+          var angle : Float )
 {
     fun move(dt: Float, bounds: Bounds){
         if(!isAlive) return;

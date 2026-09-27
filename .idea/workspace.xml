@@ -9,31 +9,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7f995ce-7683-4a25-b42a-74fb3fbbee42" name="Changes" comment="did registration(without clean architecture)">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/di/AuthorsModule.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/domain/usecase/GetAuthorsUseCase.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/navigation/AuthorsRoute.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/registration/di/RegistrationModule.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/registration/navigation/RegistrationRoute.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/di/RulesModule.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/domain/usecase/GetRulesUseCase.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/navigation/RulesRoute.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/data/repository/SettingsRepositoryImpl.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/di/SettingsModule.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/domain/entity/Settings.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/domain/repository/SettingsRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/domain/usecase/GetSettingsUseCase.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/domain/usecase/UpdateSettingsUseCase.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/navigation/SettingRoule.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/presentation/presenter/SettingsViewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/settings/presentation/ui/SettingsScreen.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/main/MainActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/main/MainApplication.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/main/MainScreen.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/navigation/NavigationOptions.kt" afterDir="false" />
+    <list default="true" id="a7f995ce-7683-4a25-b42a-74fb3fbbee42" name="Changes" comment="refactored navigation and di, realizated settingsFeature">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bee.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/beetle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cockroach.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" afterDir="false" />
@@ -41,20 +21,24 @@
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/kotlin-dsl-plugin-entries/kotlin-dsl-plugin-entries.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/kotlin-dsl-plugin-entries/kotlin-dsl-plugin-entries.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/cbwp5t7a2w8u8jxhrvaf4s9kh/candidates.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/configuration-cache/cbwp5t7a2w8u8jxhrvaf4s9kh/candidates.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/MainActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/adapter/AuthorsAdapter.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/presenter/AuthorsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/presenter/AuthorsViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/ui/AuthorsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/ui/AuthorsScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/presentation/presenter/RulesViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/rules/presentation/presenter/RulesViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/di/GameModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/di/GameModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/config/GameConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/config/GameConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bounds.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bounds.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bug.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bug.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/BugType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/BugType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/GameWorld.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/GameWorld.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Position.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Position.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/SpawnBugsUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/SpawnBugsUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/UpdateWorldUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/UpdateWorldUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/infrastructure/CanvasRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/infrastructure/CanvasRenderer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameHud.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/ui/GameHud.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameUiState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameUiState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/ui/GameScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/ui/GameScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +80,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="registration-head" />
+        <entry key="$PROJECT_DIR$" value="feat-rules" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -125,29 +109,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat-rules&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/vlad/AndroidStudioProjects/Beetles_Game/app/src/main/res/drawable&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "game__branch",
+    "git.auto.fetch.suggestion.counter": "2",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/vlad/AndroidStudioProjects/Beetles_Game/app/src/main/res/drawable",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\vlad\AndroidStudioProjects\Beetles_Game\app\src\main\res\drawable" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Androids\Beetles_Game\app\src\main\res\drawable" />
+    </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="com.phoenix.beetles.feature.core.presentation.ui" />
       <recent name="com.phoenix.beetles.main" />
       <recent name="com.phoenix.beetles.feature.rules.presentation" />
     </key>
@@ -244,7 +233,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789897323545</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refactored navigation and di, realizated settingsFeature">
+      <option name="closed" value="true" />
+      <created>1789919764075</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1789919764075</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -260,7 +257,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: added html file with rules for game &quot;beetles&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: added html file with rules for game &quot;beetles&quot;" />
+    <MESSAGE value="refactored navigation and di, realizated settingsFeature" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored navigation and di, realizated settingsFeature" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">

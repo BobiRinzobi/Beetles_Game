@@ -37,7 +37,7 @@ val gameModule = module {
         )
     }
     factory { HandleTapUseCase(get(), get()) }
-    factory { UpdateWorldUseCase(get()) }
+    factory { UpdateWorldUseCase(get(),get()) }
     factory { RestartGameUseCase(get(), get()) }
     viewModel {
         GameViewModel(
@@ -47,6 +47,7 @@ val gameModule = module {
             updateWorld = get(),
             restartGame = get(),
             scoreRepository = get(),
+            config = get(),
         )
     }
 }

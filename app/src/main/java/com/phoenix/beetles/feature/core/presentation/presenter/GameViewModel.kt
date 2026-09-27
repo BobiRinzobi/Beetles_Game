@@ -1,6 +1,7 @@
 package com.phoenix.beetles.feature.core.presentation.presenter
 
 import androidx.lifecycle.ViewModel
+import com.phoenix.beetles.feature.core.domain.config.GameConfig
 import com.phoenix.beetles.feature.core.domain.entity.Bounds
 import com.phoenix.beetles.feature.core.domain.entity.GameWorld
 import com.phoenix.beetles.feature.core.domain.entity.Position
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class GameViewModel(
     val world: GameWorld,
+    private val config: GameConfig,
     private val handleTap: HandleTapUseCase,
     private val spawnBugs: SpawnBugsUseCase,
     val updateWorld: UpdateWorldUseCase,
@@ -22,8 +24,10 @@ class GameViewModel(
     private val scoreRepository: ScoreRepository,
 ) : ViewModel() {
 
+    private var _currentTimeLeft: Float = config.roundTime.toFloat()
+
     private val _uiState = MutableStateFlow<GameUiState>(
-        GameUiState.Playing(score = 0, misses = 0)
+        GameUiState.Playing(score = 0, misses = 0, timeLeft = config.roundTime)
     )
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
 
@@ -38,21 +42,38 @@ class GameViewModel(
         refreshState()
     }
 
+    fun getTime() : Float {
+        return _currentTimeLeft
+    }
+
     fun onTick(dt: Float) {
         if (_uiState.value !is GameUiState.Playing) return
+
+        _currentTimeLeft -= dt
+
+        if (_currentTimeLeft <= 0f) {
+            _currentTimeLeft = 0f
+            refreshState()
+            finishGame()
+            return
+        }
+
         spawnBugs.tick(dt)
         updateWorld.execute(dt)
+        refreshState()
     }
 
     fun onRestart() {
         restartGame.execute()
-        _uiState.value = GameUiState.Playing(score = 0, misses = 0)
+        _currentTimeLeft = config.roundTime.toFloat()
+        refreshState()
     }
 
     private fun refreshState() {
         _uiState.value = GameUiState.Playing(
             score = world.score.value,
             misses = world.score.misses,
+            timeLeft = _currentTimeLeft.toInt()
         )
     }
 

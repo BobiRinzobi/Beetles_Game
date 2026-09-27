@@ -5,6 +5,7 @@ import com.phoenix.beetles.feature.core.domain.config.GameConfig
 import com.phoenix.beetles.feature.core.domain.entity.Bug
 import com.phoenix.beetles.feature.core.domain.entity.BugCfg
 import com.phoenix.beetles.feature.core.domain.entity.BugId
+import com.phoenix.beetles.feature.core.domain.entity.BugType
 import com.phoenix.beetles.feature.core.domain.entity.Position
 import com.phoenix.beetles.feature.core.domain.entity.Speed
 import com.phoenix.beetles.feature.core.domain.port.RandomProvider
@@ -43,13 +44,15 @@ class SpawnBugsUseCase(
             x = random.nextFloat(margin, world.bounds.width - margin),
             y = random.nextFloat(margin, world.bounds.height - margin),
         )
+        val randomType = BugType.values().random()
 
         return Bug(
             id = idGenerator(),
-            type = bugConfig.type,
+            type = randomType,
             config = bugConfig,
             position = position,
             speed = speed,
+            angle = angle
         )
     }
 
