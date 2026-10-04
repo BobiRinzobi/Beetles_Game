@@ -8,6 +8,15 @@ sealed interface AppRoute {
     data object Registration : AppRoute
 
     @Serializable
+    data object Game : AppRoute
+
+    @Serializable
+    data object Menu : AppRoute
+
+    @Serializable
+    data object Records : AppRoute
+
+    @Serializable
     data object Rules : AppRoute
 
     @Serializable
@@ -15,7 +24,4 @@ sealed interface AppRoute {
 
     @Serializable
     data object Settings : AppRoute
-
-    @Serializable
-    data object Game : AppRoute
 }

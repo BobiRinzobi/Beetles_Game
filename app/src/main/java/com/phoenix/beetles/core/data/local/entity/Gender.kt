@@ -1,4 +1,4 @@
-package com.phoenix.beetles.feature.registration.domain.entity
+package com.phoenix.beetles.core.data.local.entity
 
 enum class Gender(val title : String) {
     MAN("Мужской"),

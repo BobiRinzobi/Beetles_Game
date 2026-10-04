@@ -1,9 +1,12 @@
 package com.phoenix.beetles.feature.registration.presentation.ui
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
@@ -13,13 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import java.util.Calendar
 import com.phoenix.beetles.R
-import com.phoenix.beetles.feature.registration.domain.entity.Cources
-import com.phoenix.beetles.feature.registration.domain.entity.Gender
-import com.phoenix.beetles.feature.registration.domain.entity.User
-import com.phoenix.beetles.feature.registration.domain.entity.Zodiac
+import com.phoenix.beetles.core.data.local.entity.Cources
+import com.phoenix.beetles.core.data.local.entity.Gender
+import com.phoenix.beetles.core.data.local.entity.UserEntity
+import com.phoenix.beetles.core.data.local.entity.Zodiac
+import java.util.Calendar
+import java.util.UUID
 
 @DrawableRes
 fun Zodiac.toDrawableRes(): Int = when (this) {
@@ -37,10 +40,50 @@ fun Zodiac.toDrawableRes(): Int = when (this) {
     Zodiac.PISCES -> R.drawable.zodiac_pisces
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegistrationContent(
+    users: List<UserEntity>,
+    activeUser: UserEntity?,
+    onRegisterUser: (UserEntity) -> Unit,
+    onSelectUser: (UserEntity) -> Unit,
     modifier: Modifier = Modifier
+) {
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
+
+    Column(modifier = modifier.fillMaxSize()) {
+        TabRow(selectedTabIndex = selectedTabIndex) {
+            Tab(
+                selected = selectedTabIndex == 0,
+                onClick = { selectedTabIndex = 0 },
+                text = { Text("Создать") }
+            )
+            Tab(
+                selected = selectedTabIndex == 1,
+                onClick = { selectedTabIndex = 1 },
+                text = { Text("Выбрать (${users.size})") }
+            )
+        }
+
+        when (selectedTabIndex) {
+            0 -> CreateUserTab(
+                onRegisterUser = { newUser ->
+                    onRegisterUser(newUser)
+                    selectedTabIndex = 1
+                }
+            )
+            1 -> SelectUserTab(
+                users = users,
+                activeUser = activeUser,
+                onSelectUser = onSelectUser
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun CreateUserTab(
+    onRegisterUser: (UserEntity) -> Unit
 ) {
     var fio by rememberSaveable { mutableStateOf("") }
     var gender by rememberSaveable { mutableStateOf(Gender.MAN) }
@@ -64,20 +107,14 @@ fun RegistrationContent(
 
     val zodiacCalc = remember(day, month) { Zodiac.ZodiacCalculator(day, month) }
 
-    var userResult by remember { mutableStateOf<User?>(null) }
-
     if (showDatePicker) {
         DatePickerDialog(
             onDismissRequest = { showDatePicker = false },
             confirmButton = {
-                TextButton(onClick = { showDatePicker = false }) {
-                    Text("ОК")
-                }
+                TextButton(onClick = { showDatePicker = false }) { Text("ОК") }
             },
             dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) {
-                    Text("Отмена")
-                }
+                TextButton(onClick = { showDatePicker = false }) { Text("Отмена") }
             }
         ) {
             DatePicker(state = datePickerState)
@@ -85,13 +122,13 @@ fun RegistrationContent(
     }
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(text = "Регистрация", style = MaterialTheme.typography.headlineLarge)
+        Text(text = "Регистрация нового игрока", style = MaterialTheme.typography.headlineSmall)
 
         TextField(
             value = fio,
@@ -101,7 +138,7 @@ fun RegistrationContent(
             singleLine = true
         )
 
-        Text(text = "Пол:", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Пол:", style = MaterialTheme.typography.titleMedium)
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -120,7 +157,7 @@ fun RegistrationContent(
             }
         }
 
-        Text(text = "Курс:", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Курс:", style = MaterialTheme.typography.titleMedium)
         Box(modifier = Modifier.fillMaxWidth()) {
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -155,7 +192,7 @@ fun RegistrationContent(
             }
         }
 
-        Text(text = "Уровень сложности игры: ${difficulty.toInt()}", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Уровень сложности: ${difficulty.toInt()}", style = MaterialTheme.typography.titleMedium)
         Slider(
             value = difficulty,
             onValueChange = { difficulty = it },
@@ -163,7 +200,7 @@ fun RegistrationContent(
             steps = 3
         )
 
-        Text(text = "Дата рождения:", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Дата рождения:", style = MaterialTheme.typography.titleMedium)
         Box(modifier = Modifier.fillMaxWidth()) {
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -180,64 +217,96 @@ fun RegistrationContent(
             )
         }
 
-        Text(text = "Знак зодиака: ${zodiacCalc.title}", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Знак зодиака: ${zodiacCalc.title}", style = MaterialTheme.typography.titleMedium)
         Image(
             painter = painterResource(id = zodiacCalc.toDrawableRes()),
             contentDescription = zodiacCalc.toString(),
-            modifier = Modifier
-                .size(96.dp)
-                .padding(top = 8.dp)
+            modifier = Modifier.size(80.dp)
         )
 
         Button(
             onClick = {
-                userResult = User(
-                    fio = fio.ifBlank { "Не указано" },
+                val user = UserEntity(
+                    id = UUID.randomUUID().toString(),
+                    record = 0,
+                    fio = fio.ifBlank { "Не определено" },
                     gender = gender,
                     course = course,
                     difficulty = difficulty.toInt(),
                     data = dateString,
-                    zodiac = zodiacCalc
+                    zodiac = zodiacCalc,
+                    isActive = true
                 )
+                onRegisterUser(user)
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Зарегистрировать игрока")
+            Text("Зарегистрировать и сохранить")
         }
+    }
+}
 
-        userResult?.let { user ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                )
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+@Composable
+private fun SelectUserTab(
+    users: List<UserEntity>,
+    activeUser: UserEntity?,
+    onSelectUser: (UserEntity) -> Unit
+) {
+    if (users.isEmpty()) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Нет зарегистрированных пользователей")
+        }
+    } else {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(users) { user ->
+                val isActive = user.id == activeUser?.id
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (isActive) {
+                            MaterialTheme.colorScheme.primaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.surfaceVariant
+                        }
+                    ),
+                    border = if (isActive) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else null
                 ) {
-                    Text("Карточка игрока", style = MaterialTheme.typography.titleLarge)
-                    Text(
-                        text = """
-                            ФИО: ${user.fio}
-                            Пол: ${user.gender.title}
-                            Курс: ${user.course.title}
-                            Сложность: ${user.difficulty}
-                            Дата рождения: ${user.data}
-                            Знак зодиака: ${user.zodiac.title}
-                        """.trimIndent(),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                    Image(
-                        painter = painterResource(id = user.zodiac.toDrawableRes()),
-                        contentDescription = user.zodiac.toString(),
+                    Row(
                         modifier = Modifier
-                            .size(96.dp)
-                            .padding(top = 8.dp)
-                    )
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = user.fio ?: "Без имени",
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Text(
+                                text = "Курс: ${user.course.title} | Сложность: ${user.difficulty ?: 1} | Рекорд: ${user.record}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Text(
+                                text = "Зодиак: ${user.zodiac.title}",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+
+                        Button(
+                            onClick = { onSelectUser(user) },
+                            enabled = !isActive
+                        ) {
+                            Text(if (isActive) "Активен" else "Активировать")
+                        }
+                    }
                 }
             }
         }

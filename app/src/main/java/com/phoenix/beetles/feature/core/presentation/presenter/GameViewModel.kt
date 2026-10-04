@@ -1,6 +1,7 @@
 package com.phoenix.beetles.feature.core.presentation.presenter
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.phoenix.beetles.feature.core.domain.config.GameConfig
 import com.phoenix.beetles.feature.core.domain.entity.Bounds
 import com.phoenix.beetles.feature.core.domain.entity.GameWorld
@@ -8,11 +9,14 @@ import com.phoenix.beetles.feature.core.domain.entity.Position
 import com.phoenix.beetles.feature.core.domain.port.ScoreRepository
 import com.phoenix.beetles.feature.core.domain.usecase.HandleTapUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.RestartGameUseCase
+import com.phoenix.beetles.feature.core.domain.usecase.SaveUserRecordUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.SpawnBugsUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.UpdateWorldUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class GameViewModel(
     val world: GameWorld,
@@ -22,6 +26,7 @@ class GameViewModel(
     val updateWorld: UpdateWorldUseCase,
     private val restartGame: RestartGameUseCase,
     private val scoreRepository: ScoreRepository,
+    private val saveUserRecordUseCase: SaveUserRecordUseCase
 ) : ViewModel() {
 
     private var _currentTimeLeft: Float = config.roundTime.toFloat()
@@ -41,7 +46,6 @@ class GameViewModel(
         handleTap.execute(position)
         refreshState()
     }
-
 
     fun onTick(dt: Float) {
         if (_uiState.value !is GameUiState.Playing) return
@@ -75,10 +79,16 @@ class GameViewModel(
     }
 
     fun finishGame() {
-        val best = maxOf(scoreRepository.loadBest(), world.score.value)
-        scoreRepository.saveBest(world.score.value)
+        val currentScore = world.score.value
+        val best = maxOf(scoreRepository.loadBest(), currentScore)
+        scoreRepository.saveBest(currentScore)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            saveUserRecordUseCase(newScore = currentScore)
+        }
+
         _uiState.value = GameUiState.GameOver(
-            score = world.score.value,
+            score = currentScore,
             best = best,
         )
     }

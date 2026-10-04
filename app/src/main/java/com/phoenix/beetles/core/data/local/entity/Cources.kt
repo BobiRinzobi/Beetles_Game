@@ -1,4 +1,4 @@
-package com.phoenix.beetles.feature.registration.domain.entity
+package com.phoenix.beetles.core.data.local.entity
 
 enum class Cources(val id : Int, val title : String) {
     FIRST(1, "1 курс бакалавариат"),
