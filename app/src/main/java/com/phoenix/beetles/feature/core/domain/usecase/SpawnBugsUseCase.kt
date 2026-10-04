@@ -35,16 +35,17 @@ class SpawnBugsUseCase(
     }
 
     private fun createBug(): Bug {
-        val bugConfig = pickConfig()
-        val angle = random.nextFloat(0f, (2 * PI).toFloat())
-        val speed = Speed.fromAngle(angle, bugConfig.speed)
 
-        val margin = bugConfig.radius
+        val randomType = BugType.values().random()
+        val bugConfig = config.bugConfig[randomType]
+        val angle = random.nextFloat(0f, (2 * PI).toFloat())
+        val speed = Speed.fromAngle(angle, bugConfig!!.speed)
+
+        val margin = bugConfig!!.radius
         val position = Position(
             x = random.nextFloat(margin, world.bounds.width - margin),
             y = random.nextFloat(margin, world.bounds.height - margin),
         )
-        val randomType = BugType.values().random()
 
         return Bug(
             id = idGenerator(),

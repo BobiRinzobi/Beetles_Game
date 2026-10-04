@@ -42,9 +42,6 @@ class GameViewModel(
         refreshState()
     }
 
-    fun getTime() : Float {
-        return _currentTimeLeft
-    }
 
     fun onTick(dt: Float) {
         if (_uiState.value !is GameUiState.Playing) return

@@ -2,11 +2,13 @@ package com.phoenix.beetles.feature.authors.presentation.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +24,10 @@ fun AuthorsScreen(
 ) {
     val authors = viewModel.getAuthors()
 
-    LazyColumn {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         items(authors) { author ->
             AuthorRow(author = author)
         }

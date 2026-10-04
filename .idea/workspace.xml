@@ -9,36 +9,24 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7f995ce-7683-4a25-b42a-74fb3fbbee42" name="Changes" comment="refactored navigation and di, realizated settingsFeature">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bee.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/beetle.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cockroach.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/checksums/checksums.lock" afterDir="false" />
+    <list default="true" id="a7f995ce-7683-4a25-b42a-74fb3fbbee42" name="Changes" comment="refactoring of game_feature">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/core/data/local/dao/UsersDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/core/data/local/entity/User.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/navigation/NavigationPanel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.6.0/kotlin-dsl-plugin-entries/kotlin-dsl-plugin-entries.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.6.0/kotlin-dsl-plugin-entries/kotlin-dsl-plugin-entries.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/configuration-cache/cbwp5t7a2w8u8jxhrvaf4s9kh/candidates.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/configuration-cache/cbwp5t7a2w8u8jxhrvaf4s9kh/candidates.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/di/GameModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/di/GameModule.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/config/GameConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/config/GameConfig.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bounds.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bounds.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bug.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Bug.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/BugType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/BugType.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/GameWorld.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/GameWorld.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Position.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/entity/Position.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/ui/AuthorsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/authors/presentation/ui/AuthorsScreen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/SpawnBugsUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/SpawnBugsUseCase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/UpdateWorldUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/domain/usecase/UpdateWorldUseCase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/infrastructure/CanvasRenderer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/infrastructure/CanvasRenderer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameHud.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/ui/GameHud.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameUiState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameUiState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/presenter/GameViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/ui/GameScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/feature/core/presentation/ui/GameScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/main/MainScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/main/MainScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/phoenix/beetles/navigation/BeetlesNavHost.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,17 +58,17 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Enum" />
-        <option value="Kotlin Data Class" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Data Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat-rules" />
+        <entry key="$PROJECT_DIR$" value="game_branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -121,7 +109,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "game__branch",
+    "git-widget-placeholder": "record__branch",
     "git.auto.fetch.suggestion.counter": "2",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/vlad/AndroidStudioProjects/Beetles_Game/app/src/main/res/drawable",
@@ -241,7 +229,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789919764075</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refactoring of game_feature">
+      <option name="closed" value="true" />
+      <created>1790507859228</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1790507859228</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -258,7 +254,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: added html file with rules for game &quot;beetles&quot;" />
     <MESSAGE value="refactored navigation and di, realizated settingsFeature" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored navigation and di, realizated settingsFeature" />
+    <MESSAGE value="refactoring of game_feature" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring of game_feature" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">

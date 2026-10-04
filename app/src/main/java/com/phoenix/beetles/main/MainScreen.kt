@@ -2,45 +2,35 @@ package com.phoenix.beetles.main
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.phoenix.beetles.navigation.BeetlesNavHost
 import com.phoenix.beetles.navigation.NavigationOptions
+import com.phoenix.beetles.navigation.NavigationPanel
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen() {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
+    val tabs = NavigationOptions.entries
+    val pagerState = rememberPagerState(initialPage = 0) { tabs.size }
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         bottomBar = {
             NavigationBar {
-                NavigationOptions.entries.forEach { tab ->
-                    val isSelected = currentDestination
-                        ?.hierarchy
-                        ?.any { it.hasRoute(tab.routeClass) } == true
-
+                tabs.forEachIndexed { index, tab ->
                     NavigationBarItem(
-                        selected = isSelected,
+                        selected = pagerState.currentPage == index,
                         onClick = {
-                            navController.navigate(tab.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
+                            coroutineScope.launch {
+                                pagerState.animateScrollToPage(index)
                             }
                         },
                         icon = { Icon(tab.icon, contentDescription = tab.title) },
@@ -50,11 +40,13 @@ fun MainScreen() {
             }
         }
     ) { innerPadding ->
-        BeetlesNavHost(
-            navController = navController,
+        HorizontalPager(
+            state = pagerState,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
-        )
+                .padding(innerPadding)
+        ) { page ->
+            NavigationPanel(route = tabs[page].route)
+        }
     }
 }
