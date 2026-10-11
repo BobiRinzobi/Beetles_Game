@@ -1,8 +1,16 @@
 package com.phoenix.beetles.feature.core.presentation.ui
 
+import android.content.Context
 import android.graphics.BitmapFactory
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
@@ -13,7 +21,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.phoenix.beetles.R
 import com.phoenix.beetles.feature.core.domain.entity.BugType
 import com.phoenix.beetles.feature.core.infrastructure.CanvasRenderer
@@ -40,6 +51,10 @@ fun GameScreen(
         )
     }
 
+    val bonusBitmap = remember(context) {
+        ContextCompat.getDrawable(context, R.drawable.ic_bonus)?.toBitmap(256, 256)
+    }
+
     val gameLoop = remember(viewModel) {
         GameLoop(onTick = { dt ->
             viewModel.onTick(dt)
@@ -50,6 +65,26 @@ fun GameScreen(
     DisposableEffect(gameLoop) {
         gameLoop.start()
         onDispose { gameLoop.stop() }
+    }
+
+    DisposableEffect(viewModel, context) {
+        val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
+            ?: sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        val listener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+                viewModel.onTilt(event.values[0], event.values[1])
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
+        }
+        sensor?.let {
+            sensorManager.registerListener(listener, it, SensorManager.SENSOR_DELAY_GAME)
+        }
+        onDispose {
+            sensorManager.unregisterListener(listener)
+            viewModel.onScreenHidden()
+        }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -67,9 +102,11 @@ fun GameScreen(
                             canvas = canvas,
                             width = width,
                             height = height,
-                            bugBitmaps = bugBitmaps
+                            bugBitmaps = bugBitmaps,
+                            bonusBitmap = bonusBitmap,
                         )
                         renderer.clear()
+                        viewModel.world.bonus?.let { renderer.drawBonus(it) }
                         viewModel.world.aliveBugs().forEach { renderer.drawBug(it) }
                     }
                 }
@@ -84,6 +121,18 @@ fun GameScreen(
             state = uiState,
             modifier = Modifier.align(Alignment.TopStart)
         )
+
+        val gravityLeft = (uiState as? GameUiState.Playing)?.gravityTimeLeft ?: 0
+        if (gravityLeft > 0) {
+            Text(
+                text = "Наклон: ${gravityLeft}с",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 88.dp)
+            )
+        }
 
         val gameOverState = uiState as? GameUiState.GameOver
         if (gameOverState != null) {

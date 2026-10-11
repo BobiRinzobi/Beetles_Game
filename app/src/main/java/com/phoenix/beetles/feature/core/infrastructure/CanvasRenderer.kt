@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import com.phoenix.beetles.feature.core.domain.entity.Bonus
 import com.phoenix.beetles.feature.core.domain.entity.Bug
 import com.phoenix.beetles.feature.core.domain.entity.BugType
 import com.phoenix.beetles.feature.core.domain.port.Renderer
@@ -14,6 +15,7 @@ class CanvasRenderer(
     private val width: Int,
     private val height: Int,
     private val bugBitmaps: Map<BugType, Bitmap>,
+    private val bonusBitmap: Bitmap? = null,
 ) : Renderer {
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -42,6 +44,23 @@ class CanvasRenderer(
         canvas.drawBitmap(bitmap, null, dstRect, paint)
 
         canvas.restore()
+    }
+
+    override fun drawBonus(bonus: Bonus) {
+        val radius = bonus.radius
+        dstRect.set(
+            bonus.position.x - radius,
+            bonus.position.y - radius,
+            bonus.position.x + radius,
+            bonus.position.y + radius,
+        )
+        val bitmap = bonusBitmap
+        if (bitmap != null) {
+            canvas.drawBitmap(bitmap, null, dstRect, paint)
+            return
+        }
+        paint.color = Color.rgb(255, 193, 7)
+        canvas.drawCircle(bonus.position.x, bonus.position.y, radius, paint)
     }
 
     override fun drawScore(score: Int, misses: Int) {

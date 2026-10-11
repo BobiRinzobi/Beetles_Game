@@ -8,13 +8,16 @@ import com.phoenix.beetles.feature.core.domain.entity.BugId
 import com.phoenix.beetles.feature.core.domain.entity.GameWorld
 import com.phoenix.beetles.feature.core.domain.port.RandomProvider
 import com.phoenix.beetles.feature.core.domain.port.ScoreRepository
+import com.phoenix.beetles.feature.core.domain.port.SfxPlayer
 import com.phoenix.beetles.feature.core.domain.repository.GameRepository
 import com.phoenix.beetles.feature.core.domain.usecase.HandleTapUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.RestartGameUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.SaveUserRecordUseCase
+import com.phoenix.beetles.feature.core.domain.usecase.SpawnBonusUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.SpawnBugsUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.UpdateWorldUseCase
 import com.phoenix.beetles.feature.core.infrastructure.AndroidRandomProvider
+import com.phoenix.beetles.feature.core.infrastructure.AndroidSfxPlayer
 import com.phoenix.beetles.feature.core.infrastructure.SharedPrefsScoreRepository
 import com.phoenix.beetles.feature.core.presentation.presenter.GameViewModel
 import org.koin.android.ext.koin.androidContext
@@ -41,9 +44,17 @@ val gameModule = module {
         )
     }
     single<GameRepository> { GameRepositoryImpl(get()) }
+    single<SfxPlayer> { AndroidSfxPlayer(androidContext()) }
+    single {
+        SpawnBonusUseCase(
+            world = get(),
+            config = get(),
+            random = get(),
+        )
+    }
     factory { HandleTapUseCase(get(), get()) }
     factory { UpdateWorldUseCase(get(), get()) }
-    factory { RestartGameUseCase(get(), get()) }
+    factory { RestartGameUseCase(get(), get(), get()) }
     factoryOf(::SaveUserRecordUseCase)
     viewModelOf(::GameViewModel)
 }

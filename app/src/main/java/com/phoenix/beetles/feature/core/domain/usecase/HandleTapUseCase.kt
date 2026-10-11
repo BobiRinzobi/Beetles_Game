@@ -6,6 +6,7 @@ import com.phoenix.beetles.feature.core.domain.entity.Position
 
 sealed interface TapResult {
     data class Hit(val points: Int) : TapResult
+    object Bonus : TapResult
     object Miss : TapResult
 }
 
@@ -14,6 +15,10 @@ class HandleTapUseCase (
     private val config: GameConfig,
 ) {
     fun execute(point: Position): TapResult {
+        if (world.findBonusAt(point) != null) {
+            world.collectBonus(config.gravityModeDurationSec)
+            return TapResult.Bonus
+        }
         val bug = world.findBugAt(point)
         return if (bug != null) {
             bug.kill()

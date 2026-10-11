@@ -9,6 +9,10 @@ data class GameConfig(
     val missPenalty: Int,
     val maxBugs: Int,
     val roundTime: Int,
+    val bonusIntervalSec: Float,
+    val bonusRadius: Float,
+    val gravityModeDurationSec: Float,
+    val gravityPixelsPerG: Float,
 ) {
     companion object {
         val DEFAULT = GameConfig(
@@ -39,6 +43,10 @@ data class GameConfig(
             missPenalty = 5,
             maxBugs = 12,
             roundTime = 60,
+            bonusIntervalSec = 15f,
+            bonusRadius = 90f,
+            gravityModeDurationSec = 10f,
+            gravityPixelsPerG = 2200f,
         )
     }
 }
