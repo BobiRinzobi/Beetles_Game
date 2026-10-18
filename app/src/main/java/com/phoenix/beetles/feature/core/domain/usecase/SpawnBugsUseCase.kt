@@ -36,7 +36,7 @@ class SpawnBugsUseCase(
 
     private fun createBug(): Bug {
 
-        val randomType = BugType.values().random()
+        val randomType = BugType.values().filter { it != BugType.GOLD_BEETLE }.random()
         val bugConfig = config.bugConfig[randomType]
         val angle = random.nextFloat(0f, (2 * PI).toFloat())
         val speed = Speed.fromAngle(angle, bugConfig!!.speed)

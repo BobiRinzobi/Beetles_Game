@@ -4,6 +4,7 @@ import android.app.Application
 import com.phoenix.beetles.core.di.databaseModule
 import com.phoenix.beetles.feature.authors.di.authorsModule
 import com.phoenix.beetles.feature.core.di.gameModule
+import com.phoenix.beetles.feature.gold.di.goldModule
 import com.phoenix.beetles.feature.records.di.recordsModule
 import com.phoenix.beetles.feature.registration.di.registrationModule
 import com.phoenix.beetles.feature.rules.di.rulesModule
@@ -29,6 +30,7 @@ class MainApplication : Application() {
                 rulesModule,
                 settingsModule,
                 gameModule,
+                goldModule,
                 recordsModule,
             )
         }

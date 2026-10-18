@@ -19,6 +19,7 @@ import com.phoenix.beetles.feature.core.domain.usecase.UpdateWorldUseCase
 import com.phoenix.beetles.feature.core.infrastructure.AndroidRandomProvider
 import com.phoenix.beetles.feature.core.infrastructure.AndroidSfxPlayer
 import com.phoenix.beetles.feature.core.infrastructure.SharedPrefsScoreRepository
+import com.phoenix.beetles.feature.gold.domain.usecase.SpawnGoldenBugUseCase
 import com.phoenix.beetles.feature.core.presentation.presenter.GameViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -50,6 +51,14 @@ val gameModule = module {
             world = get(),
             config = get(),
             random = get(),
+        )
+    }
+    factory {
+        SpawnGoldenBugUseCase(
+            world = get(),
+            config = get(),
+            random = get(),
+            idGenerator = { BugId(UUID.randomUUID()) },
         )
     }
     factory { HandleTapUseCase(get(), get()) }

@@ -32,12 +32,15 @@ import com.phoenix.beetles.feature.core.presentation.presenter.GameLoop
 import com.phoenix.beetles.feature.core.presentation.presenter.GameUiState
 import com.phoenix.beetles.feature.core.presentation.presenter.GameView
 import com.phoenix.beetles.feature.core.presentation.presenter.GameViewModel
+import java.text.NumberFormat
+import java.util.Locale
 
 @Composable
 fun GameScreen(
     viewModel: GameViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val goldPrice by viewModel.goldPrice.collectAsState()
     var gameView by remember { mutableStateOf<GameView?>(null) }
 
     val context = LocalContext.current
@@ -47,7 +50,8 @@ fun GameScreen(
         mapOf(
             BugType.FLY to BitmapFactory.decodeResource(res, R.drawable.beetle),
             BugType.BEE to BitmapFactory.decodeResource(res, R.drawable.bee),
-            BugType.BEETLE to BitmapFactory.decodeResource(res, R.drawable.cockroach)
+            BugType.BEETLE to BitmapFactory.decodeResource(res, R.drawable.cockroach),
+            BugType.GOLD_BEETLE to BitmapFactory.decodeResource(res, R.drawable.gold_cockroach),
         )
     }
 
@@ -122,6 +126,17 @@ fun GameScreen(
             modifier = Modifier.align(Alignment.TopStart)
         )
 
+        Text(
+            text = goldPrice?.let {
+                "Золото ЦБ: ${formatGoldPrice(it.pricePerGram)} ₽/г · золотой таракан +${it.bonusPoints}"
+            } ?: "Золото ЦБ: загрузка курса…",
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 60.dp, start = 16.dp, end = 16.dp),
+        )
+
         val gravityLeft = (uiState as? GameUiState.Playing)?.gravityTimeLeft ?: 0
         if (gravityLeft > 0) {
             Text(
@@ -143,3 +158,8 @@ fun GameScreen(
         }
     }
 }
+private fun formatGoldPrice(value: Double): String =
+    NumberFormat.getNumberInstance(Locale("ru", "RU")).apply {
+        minimumFractionDigits = 2
+        maximumFractionDigits = 2
+    }.format(value)

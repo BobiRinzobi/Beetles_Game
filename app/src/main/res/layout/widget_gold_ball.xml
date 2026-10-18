@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gold_widget_root"
+    android:layout_width="148dp"
+    android:layout_height="148dp"
+    android:background="@drawable/widget_gold_ball_background"
+    android:contentDescription="Курс золота Центрального банка России">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ЗОЛОТО ЦБ"
+            android:textColor="#5C3900"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gold_widget_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="Загрузка…"
+            android:textColor="#432B00"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gold_widget_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Курс ЦБ РФ"
+            android:textColor="#674B12"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+</FrameLayout>

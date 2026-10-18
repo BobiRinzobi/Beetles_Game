@@ -9,7 +9,8 @@ class Bug(val id: BugId,
           var position: Position,
           var speed: Speed,
           var isAlive: Boolean = true,
-          var angle : Float )
+          var angle : Float,
+          val points: Int = config.points)
 {
     fun move(dt: Float, bounds: Bounds, gravity: TiltForce? = null) {
         if (!isAlive) return

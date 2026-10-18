@@ -38,6 +38,13 @@ data class GameConfig(
                     points = 5,
                     spriteKey = "beetle",
                 ),
+                BugType.GOLD_BEETLE to BugCfg(
+                    type = BugType.GOLD_BEETLE,
+                    radius = 130f,
+                    speed = 300f,
+                    points = 10,
+                    spriteKey = "golden_beetle",
+                ),
             ),
             spawnIntervalSec = 0.8f,
             missPenalty = 5,

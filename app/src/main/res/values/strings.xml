@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Beetles_Game</string>
+    <string name="gold_widget_description">виджет с курсом золота ЦБ</string>
+    <string name="gold_widget_label">Курс золота ЦБ</string>
 </resources>

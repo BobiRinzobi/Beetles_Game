@@ -16,6 +16,9 @@ import com.phoenix.beetles.feature.core.domain.usecase.SpawnBonusUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.SpawnBugsUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.TapResult
 import com.phoenix.beetles.feature.core.domain.usecase.UpdateWorldUseCase
+import com.phoenix.beetles.feature.gold.domain.model.GoldPrice
+import com.phoenix.beetles.feature.gold.domain.repository.GoldRepository
+import com.phoenix.beetles.feature.gold.domain.usecase.SpawnGoldenBugUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,6 +32,8 @@ class GameViewModel(
     private val spawnBugs: SpawnBugsUseCase,
     val updateWorld: UpdateWorldUseCase,
     private val spawnBonus: SpawnBonusUseCase,
+    private val spawnGoldenBug: SpawnGoldenBugUseCase,
+    private val goldPriceRepository: GoldRepository,
     private val restartGame: RestartGameUseCase,
     private val scoreRepository: ScoreRepository,
     private val saveUserRecordUseCase: SaveUserRecordUseCase,
@@ -37,11 +42,22 @@ class GameViewModel(
 
     private var _currentTimeLeft: Float = config.roundTime.toFloat()
     private var currentTilt: TiltForce = TiltForce()
+    private var goldenBugAccumulator = 0f
+
+    private val _goldPrice = MutableStateFlow(goldPriceRepository.getCachedGoldPrice())
+    val goldPrice: StateFlow<GoldPrice?> = _goldPrice.asStateFlow()
 
     private val _uiState = MutableStateFlow<GameUiState>(
         GameUiState.Playing(score = 0, misses = 0, timeLeft = config.roundTime)
     )
     val uiState: StateFlow<GameUiState> = _uiState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            val latestPrice = goldPriceRepository.refreshGoldPrice()
+            if (latestPrice != null) _goldPrice.value = latestPrice
+        }
+    }
 
     fun onSurfaceReady(width: Float, height: Float) {
         if (width <= 0f || height <= 0f) return
@@ -75,6 +91,12 @@ class GameViewModel(
 
         spawnBugs.tick(dt)
         spawnBonus.tick(dt)
+        goldenBugAccumulator += dt
+        while (goldenBugAccumulator >= GOLDEN_BUG_INTERVAL_SEC) {
+            goldenBugAccumulator -= GOLDEN_BUG_INTERVAL_SEC
+            val reward = _goldPrice.value?.bonusPoints ?: GoldPrice.FALLBACK_BONUS_POINTS
+            spawnGoldenBug.execute(reward)
+        }
         updateWorld.execute(dt, currentTilt)
         world.tickGravity(dt)
         syncScream()
@@ -89,6 +111,7 @@ class GameViewModel(
         sfxPlayer.stopBugScream()
         restartGame.execute()
         _currentTimeLeft = config.roundTime.toFloat()
+        goldenBugAccumulator = 0f
         refreshState()
     }
 
@@ -128,5 +151,9 @@ class GameViewModel(
     override fun onCleared() {
         sfxPlayer.stopBugScream()
         super.onCleared()
+    }
+
+    private companion object {
+        const val GOLDEN_BUG_INTERVAL_SEC = 20f
     }
 }

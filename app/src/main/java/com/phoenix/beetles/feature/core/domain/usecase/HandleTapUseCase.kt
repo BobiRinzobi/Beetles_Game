@@ -23,8 +23,8 @@ class HandleTapUseCase (
         return if (bug != null) {
             bug.kill()
             world.removeById(bug.id)
-            world.score.add(bug.config.points)
-            TapResult.Hit(bug.config.points)
+            world.score.add(bug.points)
+            TapResult.Hit(bug.points)
         } else {
             world.score.miss(config.missPenalty)
             TapResult.Miss
