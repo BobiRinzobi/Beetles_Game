@@ -1,5 +1,6 @@
 package com.phoenix.beetles.feature.core.presentation.presenter
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.phoenix.beetles.feature.core.domain.config.GameConfig
@@ -9,6 +10,7 @@ import com.phoenix.beetles.feature.core.domain.entity.Position
 import com.phoenix.beetles.feature.core.domain.entity.TiltForce
 import com.phoenix.beetles.feature.core.domain.port.ScoreRepository
 import com.phoenix.beetles.feature.core.domain.port.SfxPlayer
+import com.phoenix.beetles.feature.core.domain.repository.GameRepository
 import com.phoenix.beetles.feature.core.domain.usecase.HandleTapUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.RestartGameUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.SaveUserRecordUseCase
@@ -24,6 +26,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GameViewModel(
     val world: GameWorld,
@@ -38,11 +41,13 @@ class GameViewModel(
     private val scoreRepository: ScoreRepository,
     private val saveUserRecordUseCase: SaveUserRecordUseCase,
     private val sfxPlayer: SfxPlayer,
+    private val gameRepository: GameRepository
 ) : ViewModel() {
 
     private var _currentTimeLeft: Float = config.roundTime.toFloat()
     private var currentTilt: TiltForce = TiltForce()
     private var goldenBugAccumulator = 0f
+    var isGameFinished = false
 
     private val _goldPrice = MutableStateFlow(goldPriceRepository.getCachedGoldPrice())
     val goldPrice: StateFlow<GoldPrice?> = _goldPrice.asStateFlow()
@@ -108,6 +113,7 @@ class GameViewModel(
     }
 
     fun onRestart() {
+        isGameFinished = false
         sfxPlayer.stopBugScream()
         restartGame.execute()
         _currentTimeLeft = config.roundTime.toFloat()
@@ -124,20 +130,8 @@ class GameViewModel(
         )
     }
 
-    fun finishGame() {
-        sfxPlayer.stopBugScream()
-        val currentScore = world.score.value
-        val best = maxOf(scoreRepository.loadBest(), currentScore)
-        scoreRepository.saveBest(currentScore)
-
-        viewModelScope.launch(Dispatchers.IO) {
-            saveUserRecordUseCase(newScore = currentScore)
-        }
-
-        _uiState.value = GameUiState.GameOver(
-            score = currentScore,
-            best = best,
-        )
+    fun resetGameFinished() {
+        isGameFinished = false
     }
 
     private fun syncScream() {
@@ -146,6 +140,47 @@ class GameViewModel(
         } else {
             sfxPlayer.stopBugScream()
         }
+    }
+
+    fun finishGame() {
+        if (isGameFinished) return
+        isGameFinished = true
+        sfxPlayer.stopBugScream()
+
+        val currentScore = world.score.value
+
+        viewModelScope.launch {
+            val user = withContext(Dispatchers.IO) {
+                gameRepository.getActiveUser()
+            }
+
+            if (user != null) {
+                scoreRepository.save(user.id, currentScore)
+                scoreRepository.saveBest(user.id, currentScore)
+
+                val best = scoreRepository.loadBest()
+                val history = scoreRepository.loadRecentScores(user.id)
+                val average = if (history.isNotEmpty()) {
+                    history.average().toInt()
+                } else {
+                    0
+                }
+
+                withContext(Dispatchers.IO) {
+                    saveUserRecordUseCase(newScore = currentScore)
+                }
+
+                _uiState.value = GameUiState.GameOver(
+                    score = currentScore,
+                    best = best,
+                    recentScores = history,
+                    averageScore = average
+                )
+            } else {
+                // обработать отсутствие активного пользователя
+            }
+        }
+
     }
 
     override fun onCleared() {

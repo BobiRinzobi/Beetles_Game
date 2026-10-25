@@ -7,5 +7,7 @@ sealed interface GameUiState {
         val gravityTimeLeft: Int = 0,
     ) : GameUiState
     data class Paused(val score: Int) : GameUiState
-    data class GameOver(val score: Int, val best: Int) : GameUiState
+    data class GameOver(val score: Int, val best: Int,
+                        val recentScores: List<Int> = emptyList(),
+                        val averageScore: Int = 0) : GameUiState
 }
