@@ -13,11 +13,16 @@ import kotlin.math.PI
 
 class SpawnBugsUseCase(
     private val world: GameWorld,
-    private val config: GameConfig,
+    config: GameConfig,
     private val random: RandomProvider,
     private val idGenerator: () -> BugId,
 ) {
+    private var config: GameConfig = config
     private var accumulator = 0f
+
+    fun updateConfig(config: GameConfig) {
+        this.config = config
+    }
 
     fun tick(dt: Float) {
         if (world.bounds.width <= 1f || world.bounds.height <= 1f) return

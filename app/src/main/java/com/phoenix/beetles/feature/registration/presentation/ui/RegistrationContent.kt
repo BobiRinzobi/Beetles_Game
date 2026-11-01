@@ -196,8 +196,8 @@ private fun CreateUserTab(
         Slider(
             value = difficulty,
             onValueChange = { difficulty = it },
-            valueRange = 1f..5f,
-            steps = 3
+            valueRange = 1f..4f,
+            steps = 2
         )
 
         Text(text = "Дата рождения:", style = MaterialTheme.typography.titleMedium)
@@ -291,7 +291,7 @@ private fun SelectUserTab(
                                 style = MaterialTheme.typography.titleMedium
                             )
                             Text(
-                                text = "Курс: ${user.course.title} | Сложность: ${user.difficulty ?: 1} | Рекорд: ${user.record}",
+                                text = "Курс: ${user.course.title} | Текущая сложность: ${user.difficulty?.coerceIn(0, 4) ?: 0} | Рекорд: ${user.record}",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                             Text(

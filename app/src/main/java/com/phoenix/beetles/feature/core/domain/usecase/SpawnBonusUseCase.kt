@@ -8,10 +8,15 @@ import com.phoenix.beetles.feature.core.domain.port.RandomProvider
 
 class SpawnBonusUseCase(
     private val world: GameWorld,
-    private val config: GameConfig,
+    config: GameConfig,
     private val random: RandomProvider,
 ) {
+    private var config: GameConfig = config
     private var accumulator = 0f
+
+    fun updateConfig(config: GameConfig) {
+        this.config = config
+    }
 
     fun tick(dt: Float) {
         if (world.bounds.width <= 1f || world.bounds.height <= 1f) return

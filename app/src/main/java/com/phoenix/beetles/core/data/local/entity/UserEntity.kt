@@ -14,5 +14,9 @@ data class UserEntity(
     val difficulty : Int?,
     val data : String?,
     val zodiac : Zodiac,
-    val isActive : Boolean = false
+    val isActive : Boolean = false,
+    val gameSpeed: Float? = null,
+    val maxBeetlesCount: Int? = null,
+    val boostSpawn: Int? = null,
+    val roundTime: Int? = null,
 )

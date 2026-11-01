@@ -8,7 +8,7 @@ import com.phoenix.beetles.core.data.local.entity.UserEntity
 
 @Database(
     entities = [UserEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 

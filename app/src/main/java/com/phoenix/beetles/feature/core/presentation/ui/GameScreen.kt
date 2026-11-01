@@ -149,12 +149,20 @@ fun GameScreen(
             )
         }
 
-        val gameOverState = uiState as? GameUiState.GameOver
-        if (gameOverState != null) {
-            GameOverDialog(
-                state = gameOverState,
-                onRestart = { viewModel.onRestart() },
-            )
+        when (val gameOverState = uiState) {
+            is GameUiState.GuestGameOver -> {
+                GameOverDialog(
+                    state = gameOverState,
+                    onRestart = { viewModel.onRestart() },
+                )
+            }
+            is GameUiState.RegisteredGameOver -> {
+                GameOverDialog(
+                    state = gameOverState,
+                    onRestart = { viewModel.onRestart() },
+                )
+            }
+            else -> Unit
         }
     }
 }

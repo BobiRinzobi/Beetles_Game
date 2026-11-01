@@ -7,5 +7,7 @@ interface SettingsRepository {
 
     fun getSettings(): Flow<Settings>
 
+    fun getCurrentSettings(): Settings
+
     suspend fun updateSettings(settings: Settings)
 }

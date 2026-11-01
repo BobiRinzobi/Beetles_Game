@@ -15,5 +15,5 @@ val registrationModule = module {
     factoryOf(::GetAllUsersFioUseCase)
     factoryOf(::InsertUserUseCase)
     factoryOf(::SetActiveUserUseCase)
-    viewModel { RegistrationViewModel(get(), get(), get()) }
+    viewModel { RegistrationViewModel(get(), get(), get(), get(), get()) }
 }

@@ -8,6 +8,6 @@ sealed interface RegistrationState {
     data object Error : RegistrationState
     data class Content(
         val users: List<UserEntity> = emptyList(),
-        val activeUser: UserEntity? = null
+        val activeUser: UserEntity? = null,
     ) : RegistrationState
 }

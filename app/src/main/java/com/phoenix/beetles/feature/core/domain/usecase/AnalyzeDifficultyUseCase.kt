@@ -1,23 +1,35 @@
 package com.phoenix.beetles.feature.core.domain.usecase
 
+import kotlin.math.abs
+
 class AnalyzeDifficultyUseCase {
 
     fun execute(scores: List<Int>): Int {
-        if (scores.size < 3) return 0
+        if (scores.size < MIN_RESULTS) return 0
 
-        val recent = scores.take(2).average()
-        val older = scores.takeLast(2).average()
+        val current = scores.first().toDouble()
+        val previousAvg = scores.drop(1).take(PREVIOUS_RESULTS).average()
 
-        if (older == 0.0) {
-            return if (recent > 0) 1 else 0
+        if (previousAvg == 0.0) {
+            return when {
+                current > 0.0 -> 2
+                current < 0.0 -> -2
+                else -> 1
+            }
         }
 
-        val change = (recent - older) / older
+        val change = (current - previousAvg) / abs(previousAvg)
 
         return when {
-            change >= 0.15 -> 1
-            change <= -0.15 -> -1
+            change >= CHANGE_STEP -> 2
+            change <= -CHANGE_STEP -> -2
             else -> 0
         }
+    }
+
+    private companion object {
+        const val MIN_RESULTS = 3
+        const val PREVIOUS_RESULTS = 2
+        const val CHANGE_STEP = 0.10
     }
 }

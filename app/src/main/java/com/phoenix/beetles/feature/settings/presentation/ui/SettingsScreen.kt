@@ -23,6 +23,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel
 ) {
     val settings by viewModel.settingsState.collectAsState()
+    val adaptiveDifficultyLevel by viewModel.adaptiveDifficultyLevel.collectAsState()
 
     Column(
         modifier = Modifier
@@ -35,6 +36,10 @@ fun SettingsScreen(
             text = "Настройки игры",
             style = MaterialTheme.typography.headlineMedium
         )
+//        Text(
+//            text = "Адаптивная сложность: ${if (adaptiveDifficultyLevel > 0) "$adaptiveDifficultyLevel" else adaptiveDifficultyLevel}",
+//            style = MaterialTheme.typography.titleMedium,
+//        )
 
         SettingsSection(title = "Скорость игры") {
             Row(
@@ -70,7 +75,7 @@ fun SettingsScreen(
             }
         }
 
-        SettingsSection(title = "интервал появления бонусов") {
+        SettingsSection(title = "Интервал появления бонусов") {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.fillMaxWidth()

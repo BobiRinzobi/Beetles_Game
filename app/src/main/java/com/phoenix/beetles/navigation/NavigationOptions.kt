@@ -16,7 +16,7 @@ enum class NavigationOptions(
     val icon: ImageVector,
 ) {
     REGISTRATION(AppRoute.Registration, "Регистрация", Icons.Default.Face),
-    GAME(AppRoute.Game, "Игра", Icons.Default.PlayArrow),
+//    GAME(AppRoute.Game, "Игра", Icons.Default.PlayArrow),
     RECORDS(AppRoute.Records, "Рекорды", Icons.Default.Star),
     RULES(AppRoute.Rules, "Правила", Icons.Default.Info),
     SETTINGS(AppRoute.Settings, "Настройки", Icons.Default.Settings),
@@ -28,7 +28,7 @@ enum class BottomBarItem(
     val title: String,
     val icon: ImageVector
 ) {
-    REGISTRATION(AppRoute.Registration, "Регистрация", Icons.Default.Face),
+//    REGISTRATION(AppRoute.Registration, "Регистрация", Icons.Default.Face),
     GAME(AppRoute.Game, "Игра", Icons.Default.PlayArrow),
     MENU(AppRoute.Menu, "Меню", Icons.Default.Menu)
 }

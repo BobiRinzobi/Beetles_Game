@@ -57,7 +57,7 @@ fun MainScreen() {
                 .padding(innerPadding)
         ) { page ->
             val currentRoute = when (bottomItems[page]) {
-                BottomBarItem.REGISTRATION -> AppRoute.Registration
+//                BottomBarItem.REGISTRATION -> AppRoute.Registration
                 BottomBarItem.GAME -> AppRoute.Game
                 BottomBarItem.MENU -> activeMenuRoute
             }
@@ -66,12 +66,12 @@ fun MainScreen() {
                 route = currentRoute,
                 onNavigateTo = { selectedRoute ->
                     when (selectedRoute) {
-                        AppRoute.Registration -> {
-                            coroutineScope.launch {
-                                pagerState.animateScrollToPage(BottomBarItem.REGISTRATION.ordinal)
-                            }
-                            activeMenuRoute = AppRoute.Menu
-                        }
+//                        AppRoute.Registration -> {
+//                            coroutineScope.launch {
+//                                pagerState.animateScrollToPage(BottomBarItem.REGISTRATION.ordinal)
+//                            }
+//                            activeMenuRoute = AppRoute.Menu
+//                        }
                         AppRoute.Game -> {
                             coroutineScope.launch {
                                 pagerState.animateScrollToPage(BottomBarItem.GAME.ordinal)
