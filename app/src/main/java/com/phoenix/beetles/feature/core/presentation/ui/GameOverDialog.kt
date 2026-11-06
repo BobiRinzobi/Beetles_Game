@@ -49,7 +49,20 @@ fun GameOverDialog(
     GameOverDialog(
         score = state.score,
         onRestart = onRestart,
-    )
+    ) {
+        Text("Уровень сложности: ${state.difficultyLevel}")
+        Text("Средний результат: ${state.averageScore}")
+        Text(state.difficultyNotice)
+        Spacer(modifier = Modifier.height(12.dp))
+        Text("Последние игры:")
+        if (state.recentScores.isEmpty()) {
+            Text("История пока пуста")
+        } else {
+            state.recentScores.forEachIndexed { index, score ->
+                Text("${index + 1}. $score очков")
+            }
+        }
+    }
 }
 
 @Composable

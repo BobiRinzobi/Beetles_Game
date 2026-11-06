@@ -6,6 +6,7 @@ import com.phoenix.beetles.feature.core.domain.config.GameConfig
 import com.phoenix.beetles.feature.core.domain.entity.Bounds
 import com.phoenix.beetles.feature.core.domain.entity.BugId
 import com.phoenix.beetles.feature.core.domain.entity.GameWorld
+import com.phoenix.beetles.feature.core.domain.port.DifficultyRepository
 import com.phoenix.beetles.feature.core.domain.port.RandomProvider
 import com.phoenix.beetles.feature.core.domain.port.ScoreRepository
 import com.phoenix.beetles.feature.core.domain.port.SfxPlayer
@@ -19,6 +20,7 @@ import com.phoenix.beetles.feature.core.domain.usecase.SpawnBugsUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.UpdateWorldUseCase
 import com.phoenix.beetles.feature.core.infrastructure.AndroidRandomProvider
 import com.phoenix.beetles.feature.core.infrastructure.AndroidSfxPlayer
+import com.phoenix.beetles.feature.core.infrastructure.SharedPrefsDifficultyRepository
 import com.phoenix.beetles.feature.core.infrastructure.SharedPrefsScoreRepository
 import com.phoenix.beetles.feature.gold.domain.usecase.SpawnGoldenBugUseCase
 import com.phoenix.beetles.feature.core.presentation.presenter.GameViewModel
@@ -36,6 +38,7 @@ val gameModule = module {
             androidContext().getSharedPreferences("bugs", Context.MODE_PRIVATE)
         )
     }
+    single<DifficultyRepository> { SharedPrefsDifficultyRepository(androidContext()) }
     single { GameWorld(Bounds(width = 1f, height = 1f)) }
     single {
         SpawnBugsUseCase(

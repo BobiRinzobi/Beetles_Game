@@ -2,6 +2,7 @@ package com.phoenix.beetles.feature.settings.presentation.presenter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.phoenix.beetles.feature.core.domain.port.DifficultyRepository
 import com.phoenix.beetles.feature.core.domain.repository.GameRepository
 import com.phoenix.beetles.feature.settings.domain.entity.Settings
 import com.phoenix.beetles.feature.settings.domain.repository.SettingsRepository
@@ -9,6 +10,7 @@ import com.phoenix.beetles.feature.settings.domain.usecase.GetSettingsUseCase
 import com.phoenix.beetles.feature.settings.domain.usecase.UpdateSettingsUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -17,6 +19,7 @@ class SettingsViewModel(
     private val updateSettingsUseCase: UpdateSettingsUseCase,
     private val gameRepository: GameRepository,
     private val settingsRepository: SettingsRepository,
+    private val difficultyRepository: DifficultyRepository,
 ) : ViewModel() {
 
     val settingsState: StateFlow<Settings> = getSettingsUseCase()
@@ -31,7 +34,13 @@ class SettingsViewModel(
 
     init {
         viewModelScope.launch {
-            val user = gameRepository.getActiveUser() ?: return@launch
+            val user = gameRepository.getActiveUser()
+            if (user == null) {
+                difficultyRepository.observeLevel().collect { level ->
+                    _adaptiveDifficultyLevel.value = level
+                }
+                return@launch
+            }
             _adaptiveDifficultyLevel.value = user.difficulty ?: 0
             val profileSettings = user.toSettings() ?: Settings()
             settingsRepository.updateSettings(profileSettings)
@@ -44,7 +53,12 @@ class SettingsViewModel(
     fun updateSettings(newSettings: Settings) {
         viewModelScope.launch {
             updateSettingsUseCase(newSettings)
-            val user = gameRepository.getActiveUser() ?: return@launch
+            val user = gameRepository.getActiveUser()
+            if (user == null) {
+                difficultyRepository.saveLevel(0)
+                _adaptiveDifficultyLevel.value = 0
+                return@launch
+            }
             gameRepository.updateUser(user.copy(
                 difficulty = 0,
                 gameSpeed = newSettings.gameSpeed,
