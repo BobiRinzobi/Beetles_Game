@@ -118,7 +118,7 @@ class GameViewModel(
     }
 
     fun onTilt(ax: Float, ay: Float) {
-        currentTilt = TiltForce(ax = ax, ay = ay)
+        currentTilt = TiltForce(ax = -ax, ay = ay)
     }
 
     fun onTap(position: Position) {
@@ -220,27 +220,12 @@ class GameViewModel(
             activeUser
         }
         val adjustment = analyzeDifficulty.execute(scoresNewestFirst)
-//        if (adjustment == 0) {
-//            return when {
-//                scoresNewestFirst.size < MIN_RESULTS_FOR_ADAPTATION ->
-//                    "Для адаптации сложности нужно минимум $MIN_RESULTS_FOR_ADAPTATION результата."
-//                else -> "Сложность не изменилась: результат изменился менее чем на 15%."
-//            }
-//        }
 
         val newLevel = (difficultyLevel + adjustment)
             .coerceIn(MIN_DIFFICULTY_LEVEL, MAX_DIFFICULTY_LEVEL)
-//        if (newLevel == difficultyLevel) {
-//            val limit = if (adjustment > 0) "максимум" else "минимум"
-//            return "Сложность не изменилась: достигнут $limit (уровень $difficultyLevel)."
-//        }
 
         val previousSettings = user?.toSettings() ?: profileSettings
         val updatedSettings = previousSettings.withDifficultyStep(adjustment)
-//        if (updatedSettings == previousSettings) {
-//            val limit = if (adjustment > 0) "максимум" else "минимум"
-//            return "Сложность не изменилась: настройки уже достигли доступного предела ($limit)."
-//        }
 
         difficultyLevel = newLevel
         profileSettings = updatedSettings
@@ -254,14 +239,8 @@ class GameViewModel(
         spawnBugs.updateConfig(config)
         spawnBonus.updateConfig(config)
 
-//        val speedDescription = "скорость ${formatSpeed(previousSettings.gameSpeed)}× → ${formatSpeed(updatedSettings.gameSpeed)}×"
-//        val beetlesDescription = "максимум жуков ${previousSettings.maxBeetlesCount} → ${updatedSettings.maxBeetlesCount}"
-//        val boostDescription = "интервал бонусов ${previousSettings.boostSpawn}с → ${updatedSettings.boostSpawn}с"
-//        val roundDescription = "длительность раунда ${previousSettings.roundTime}с → ${updatedSettings.roundTime}с"
         val directionText = if (adjustment > 0) "повышена" else "снижена"
         return "Сложность $directionText до уровня $difficultyLevel"
-//        : $speedDescription, " +
-//        "$beetlesDescription, $boostDescription, $roundDescription.
     }
 
     private fun Settings.withDifficultyStep(direction: Int): Settings = copy(
@@ -271,7 +250,7 @@ class GameViewModel(
         roundTime = stepOption(roundTimeOptions, roundTime, -direction),
     )
 
-    private fun com.phoenix.beetles.core.data.local.entity.UserEntity.toSettings(): Settings? {
+    private fun UserEntity.toSettings(): Settings? {
         if (gameSpeed == null || maxBeetlesCount == null || boostSpawn == null || roundTime == null) return null
         return settingsRepository.getCurrentSettings().copy(
             gameSpeed = gameSpeed,
@@ -281,7 +260,7 @@ class GameViewModel(
         )
     }
 
-    private fun com.phoenix.beetles.core.data.local.entity.UserEntity.withSettings(settings: Settings) = copy(
+    private fun UserEntity.withSettings(settings: Settings) = copy(
         gameSpeed = settings.gameSpeed,
         maxBeetlesCount = settings.maxBeetlesCount,
         boostSpawn = settings.boostSpawn,
@@ -299,8 +278,8 @@ class GameViewModel(
         return sortedOptions[nextIndex]
     }
 
-    private fun formatSpeed(speed: Float): String =
-        speed.toString().replace('.', ',')
+//    private fun formatSpeed(speed: Float): String =
+//        speed.toString().replace('.', ',')
 
     fun finishGame() {
         if (isGameFinished) return
@@ -374,7 +353,7 @@ class GameViewModel(
         const val MAX_BUG_COUNT = 30
         const val MIN_BONUS_INTERVAL_SEC = 5f
         const val MAX_BONUS_INTERVAL_SEC = 30f
-        const val MIN_RESULTS_FOR_ADAPTATION = 3
+//        const val MIN_RESULTS_FOR_ADAPTATION = 3
         const val GUEST_USER_ID = "guest"
     }
 }
