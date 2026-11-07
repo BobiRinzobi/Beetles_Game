@@ -6,6 +6,4 @@ interface DifficultyRepository {
     fun getLevel(): Int
     fun observeLevel(): StateFlow<Int>
     fun saveLevel(level: Int)
-
 }
-
