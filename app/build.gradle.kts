@@ -93,4 +93,7 @@ dependencies {
     implementation (libs.compose.material.icons)
 
 
+    testImplementation(libs.junit)
+
+
 }

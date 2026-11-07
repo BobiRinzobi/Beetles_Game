@@ -14,7 +14,7 @@ class AnalyzeDifficultyUseCase {
             return when {
                 current > 0.0 -> 2
                 current < 0.0 -> -2
-                else -> 1
+                else -> 0
             }
         }
 
