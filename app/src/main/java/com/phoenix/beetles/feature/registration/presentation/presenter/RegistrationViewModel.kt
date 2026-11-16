@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.phoenix.beetles.core.data.local.entity.UserEntity
+import com.phoenix.beetles.feature.core.domain.config.DifficultyPresets
 import com.phoenix.beetles.feature.core.domain.repository.GameRepository
 import com.phoenix.beetles.feature.registration.domain.usecase.GetAllUsersFioUseCase
 import com.phoenix.beetles.feature.registration.domain.usecase.InsertUserUseCase
@@ -85,14 +86,6 @@ class RegistrationViewModel(
     )
 
     private fun settingsForDifficulty(level: Int): Settings {
-        val defaults = Settings()
-        val index = (level - 1).coerceIn(0, 3)
-
-        return defaults.copy(
-            gameSpeed = defaults.gameSpeedOptions.sorted()[index],
-            maxBeetlesCount = defaults.maxBeetlesCountOptions.sorted()[index],
-            boostSpawn = defaults.boostSpawnOptions.sorted()[index],
-            roundTime = defaults.roundTimeOptions.sortedDescending()[index],
-        )
+        return DifficultyPresets.settingsFor(level)
     }
 }

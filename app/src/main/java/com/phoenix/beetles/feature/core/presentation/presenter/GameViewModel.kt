@@ -224,7 +224,7 @@ class GameViewModel(
         val newLevel = (difficultyLevel + adjustment)
             .coerceIn(MIN_DIFFICULTY_LEVEL, MAX_DIFFICULTY_LEVEL)
 
-        val previousSettings = user?.toSettings() ?: profileSettings
+        val previousSettings = settingsRepository.getCurrentSettings()
         val updatedSettings = previousSettings.withDifficultyStep(adjustment)
 
         difficultyLevel = newLevel
@@ -246,7 +246,7 @@ class GameViewModel(
     private fun Settings.withDifficultyStep(direction: Int): Settings = copy(
         gameSpeed = stepOption(gameSpeedOptions, gameSpeed, direction),
         maxBeetlesCount = stepOption(maxBeetlesCountOptions, maxBeetlesCount, direction),
-        boostSpawn = stepOption(boostSpawnOptions, boostSpawn, -direction),
+        boostSpawn = stepOption(boostSpawnOptions, boostSpawn, direction),
         roundTime = stepOption(roundTimeOptions, roundTime, -direction),
     )
 
@@ -342,7 +342,7 @@ class GameViewModel(
 
     private companion object {
         const val GOLDEN_BUG_INTERVAL_SEC = 20f
-        const val MIN_DIFFICULTY_LEVEL = 0
+        const val MIN_DIFFICULTY_LEVEL = 1
         const val MAX_DIFFICULTY_LEVEL = 4
         const val DEFAULT_DIFFICULTY_LEVEL = 1
         const val MIN_GAME_SPEED = 0.5f
@@ -353,7 +353,6 @@ class GameViewModel(
         const val MAX_BUG_COUNT = 30
         const val MIN_BONUS_INTERVAL_SEC = 5f
         const val MAX_BONUS_INTERVAL_SEC = 30f
-//        const val MIN_RESULTS_FOR_ADAPTATION = 3
         const val GUEST_USER_ID = "guest"
     }
 }

@@ -5,10 +5,10 @@ import kotlin.math.abs
 class AnalyzeDifficultyUseCase {
 
     fun execute(scores: List<Int>): Int {
-        if (scores.size < MIN_RESULTS) return 0
+        if (scores.size < 2) return 0
 
         val current = scores.first().toDouble()
-        val previousAvg = scores.drop(1).take(PREVIOUS_RESULTS).average()
+        val previousAvg = scores.drop(1).take(2).average()
 
         if (previousAvg == 0.0) {
             return when {
@@ -21,15 +21,12 @@ class AnalyzeDifficultyUseCase {
         val change = (current - previousAvg) / abs(previousAvg)
 
         return when {
-            change >= CHANGE_STEP -> 2
-            change <= -CHANGE_STEP -> -2
+            change >= 0.20 -> 2
+            change <= -0.20 -> -2
+            change >= 0.10 -> 1
+            change <= -0.10 -> -1
             else -> 0
         }
     }
 
-    private companion object {
-        const val MIN_RESULTS = 3
-        const val PREVIOUS_RESULTS = 2
-        const val CHANGE_STEP = 0.10
-    }
 }

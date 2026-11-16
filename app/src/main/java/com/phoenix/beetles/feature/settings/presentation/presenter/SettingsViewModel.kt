@@ -2,6 +2,7 @@ package com.phoenix.beetles.feature.settings.presentation.presenter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.phoenix.beetles.feature.core.domain.config.DifficultyPresets
 import com.phoenix.beetles.feature.core.domain.port.DifficultyRepository
 import com.phoenix.beetles.feature.core.domain.repository.GameRepository
 import com.phoenix.beetles.feature.settings.domain.entity.Settings
@@ -55,18 +56,36 @@ class SettingsViewModel(
             updateSettingsUseCase(newSettings)
             val user = gameRepository.getActiveUser()
             if (user == null) {
-                difficultyRepository.saveLevel(0)
-                _adaptiveDifficultyLevel.value = 0
                 return@launch
             }
             gameRepository.updateUser(user.copy(
-                difficulty = 0,
                 gameSpeed = newSettings.gameSpeed,
                 maxBeetlesCount = newSettings.maxBeetlesCount,
                 boostSpawn = newSettings.boostSpawn,
                 roundTime = newSettings.roundTime,
             ))
-            _adaptiveDifficultyLevel.value = 0
+        }
+    }
+
+    fun selectDifficultyPreset(level: Int) {
+        val normalizedLevel = DifficultyPresets.normalize(level)
+        val preset = DifficultyPresets.settingsFor(normalizedLevel)
+
+        viewModelScope.launch {
+            updateSettingsUseCase(preset)
+            val user = gameRepository.getActiveUser()
+            if (user == null) {
+                difficultyRepository.saveLevel(normalizedLevel)
+            } else {
+                gameRepository.updateUser(user.copy(
+                    difficulty = normalizedLevel,
+                    gameSpeed = preset.gameSpeed,
+                    maxBeetlesCount = preset.maxBeetlesCount,
+                    boostSpawn = preset.boostSpawn,
+                    roundTime = preset.roundTime,
+                ))
+            }
+            _adaptiveDifficultyLevel.value = normalizedLevel
         }
     }
 

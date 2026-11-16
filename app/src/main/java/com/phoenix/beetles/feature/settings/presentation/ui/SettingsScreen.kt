@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FilterChip
@@ -16,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.phoenix.beetles.feature.core.domain.config.DifficultyPresets
 import com.phoenix.beetles.feature.settings.presentation.presenter.SettingsViewModel
 
 @Composable
@@ -23,7 +26,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel
 ) {
     val settings by viewModel.settingsState.collectAsState()
-    val adaptiveDifficultyLevel by viewModel.adaptiveDifficultyLevel.collectAsState()
+    val presetLevel = DifficultyPresets.levelFor(settings)
 
     Column(
         modifier = Modifier
@@ -36,10 +39,30 @@ fun SettingsScreen(
             text = "Настройки игры",
             style = MaterialTheme.typography.headlineMedium
         )
-//        Text(
-//            text = "Адаптивная сложность: ${if (adaptiveDifficultyLevel > 0) "$adaptiveDifficultyLevel" else adaptiveDifficultyLevel}",
-//            style = MaterialTheme.typography.titleMedium,
-//        )
+        SettingsSection(title = "Сложность") {
+            Text(
+                text = presetLevel?.let { "Уровень $it" } ?: "Пользовательский",
+                style = MaterialTheme.typography.titleMedium,
+            )
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                (DifficultyPresets.MIN_LEVEL..DifficultyPresets.MAX_LEVEL).chunked(4).forEach { rowLevels ->
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        rowLevels.forEach { level ->
+                            FilterChip(
+                                selected = presetLevel == level,
+                                onClick = { viewModel.selectDifficultyPreset(level) },
+                                label = { Text("$level") },
+                                modifier = Modifier.size(48.dp),
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                        }
+                    }
+                }
+            }
+        }
 
         SettingsSection(title = "Скорость игры") {
             Row(
@@ -93,18 +116,23 @@ fun SettingsScreen(
         }
 
         SettingsSection(title = "Длительность раунда") {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                settings.roundTimeOptions.forEach { time ->
-                    FilterChip(
-                        selected = settings.roundTime == time,
-                        onClick = {
-                            viewModel.updateSettings(settings.copy(roundTime = time))
-                        },
-                        label = { Text("${time}с") }
-                    )
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                settings.roundTimeOptions.chunked(5).forEach { rowTimes ->
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        rowTimes.forEach { time ->
+                            FilterChip(
+                                selected = settings.roundTime == time,
+                                onClick = {
+                                    viewModel.updateSettings(settings.copy(roundTime = time))
+                                },
+                                label = { Text("${time}с") },
+                                modifier = Modifier.size(65.dp),
+                            )
+                        }
+                    }
                 }
             }
         }

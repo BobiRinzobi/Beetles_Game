@@ -35,7 +35,7 @@ data class GameConfig(
                     type = BugType.BEETLE,
                     radius = 180f,
                     speed = 200f,
-                    points = 5,
+                    points = 50,
                     spriteKey = "beetle",
                 ),
                 BugType.GOLD_BEETLE to BugCfg(
