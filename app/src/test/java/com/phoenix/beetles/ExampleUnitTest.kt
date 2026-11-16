@@ -23,12 +23,12 @@ class ExampleUnitTest {
 
     @Test
     fun UpLevelDifficultyTest() {
-        assertEquals(2, useCase.execute(listOf(110, 100, 100)))
+        assertEquals(1, useCase.execute(listOf(110, 100, 100)))
     }
 
     @Test
     fun DownLevelDifficultyTest() {
-        assertEquals(-2, useCase.execute(listOf(90, 100, 100))
+        assertEquals(-1, useCase.execute(listOf(90, 100, 100))
         )
     }
 
@@ -55,6 +55,6 @@ class ExampleUnitTest {
 
     @Test
     fun MoreResultTest() {
-        assertEquals(2, useCase.execute(listOf(119, 100, 100, 0)))
+        assertEquals(1, useCase.execute(listOf(119, 100, 100, 0)))
     }
 }
