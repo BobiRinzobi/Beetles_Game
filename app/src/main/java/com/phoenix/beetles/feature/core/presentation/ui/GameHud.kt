@@ -39,7 +39,7 @@ fun GameHud(
         Text(
             text = formatTime(timeLeft.toInt()),
             style = MaterialTheme.typography.titleLarge,
-            color = if (timeLeft <= 10) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onBackground
+//            color = if (timeLeft <= 10) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onBackground
         )
 
         Text(
