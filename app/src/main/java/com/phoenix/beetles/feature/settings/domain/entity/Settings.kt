@@ -6,7 +6,7 @@ data class Settings(
     val boostSpawn: Int = 15,
     val roundTime: Int = 60,
 
-    val gameSpeedOptions: List<Float> = listOf(0.5f, 1.0f, 1.5f, 2.0f),
+    val gameSpeedOptions: List<Float> = listOf(0.5f, 1.0f, 1.5f, 2.0f, 12.0f),
     val maxBeetlesCountOptions: List<Int> = listOf(5, 10, 15, 20),
     val boostSpawnOptions: List<Int> = listOf(5, 10, 15, 30),
     val roundTimeOptions: List<Int> = listOf(5, 60, 90, 120)
