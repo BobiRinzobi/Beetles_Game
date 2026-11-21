@@ -141,12 +141,12 @@ class GameViewModel(
             increaseDiff()
         }
 
-//        if(world.score.misses >= 10){
-//            _currentTime = 0f
-//            refreshState()
-//            finishGame()
-//            return
-//        }
+        if(world.score.misses >= 10){
+            _currentTime = 0f
+            refreshState()
+            finishGame()
+            return
+        }
 
 //        if (_currentTimeLeft <= 0f) {
 //            _currentTimeLeft = 0f
