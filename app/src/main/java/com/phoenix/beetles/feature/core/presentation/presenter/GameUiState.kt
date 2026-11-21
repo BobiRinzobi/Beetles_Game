@@ -2,7 +2,7 @@ package com.phoenix.beetles.feature.core.presentation.presenter
 sealed interface GameUiState {
     data class Playing(
         val score: Int,
-        val timeLeft : Int,
+        val timeLeft : Float,
         val misses: Int,
         val gravityTimeLeft: Int = 0,
     ) : GameUiState
@@ -12,13 +12,13 @@ sealed interface GameUiState {
         val recentScores: List<Int>,
         val averageScore: Int,
         val difficultyLevel: Int,
-        val difficultyNotice: String,
+//        val difficultyNotice: String,
     ) : GameUiState
     data class RegisteredGameOver(
         val score: Int,
         val best: Int,
         val recentScores: List<Int>,
         val averageScore: Int,
-        val difficultyNotice: String,
+//        val difficultyNotice: String,
     ) : GameUiState
 }
