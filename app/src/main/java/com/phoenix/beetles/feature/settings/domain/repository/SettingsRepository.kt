@@ -9,5 +9,5 @@ interface SettingsRepository {
 
     fun getCurrentSettings(): Settings
 
-    suspend fun updateSettings(settings: Settings)
+    fun updateSettings(settings: Settings)
 }

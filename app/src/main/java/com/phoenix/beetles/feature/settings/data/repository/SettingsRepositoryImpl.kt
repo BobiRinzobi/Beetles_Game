@@ -22,7 +22,7 @@ class SettingsRepositoryImpl(context: Context) : SettingsRepository {
 
     override fun getCurrentSettings(): Settings = _settingsState.value
 
-    override suspend fun updateSettings(settings: Settings) {
+    override fun updateSettings(settings: Settings) {
         preferences.edit {
             putFloat(KEY_GAME_SPEED, settings.gameSpeed)
             putInt(KEY_MAX_BEETLES_COUNT, settings.maxBeetlesCount)
