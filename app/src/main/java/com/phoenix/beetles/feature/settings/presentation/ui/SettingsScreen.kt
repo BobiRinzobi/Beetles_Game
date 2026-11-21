@@ -115,27 +115,27 @@ fun SettingsScreen(
             }
         }
 
-        SettingsSection(title = "Длительность раунда") {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                settings.roundTimeOptions.chunked(5).forEach { rowTimes ->
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        rowTimes.forEach { time ->
-                            FilterChip(
-                                selected = settings.roundTime == time,
-                                onClick = {
-                                    viewModel.updateSettings(settings.copy(roundTime = time))
-                                },
-                                label = { Text("${time}с") },
-                                modifier = Modifier.size(65.dp),
-                            )
-                        }
-                    }
-                }
-            }
-        }
+//        SettingsSection(title = "Длительность раунда") {
+//            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+//                settings.roundTimeOptions.chunked(5).forEach { rowTimes ->
+//                    Row(
+//                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+//                        modifier = Modifier.fillMaxWidth(),
+//                    ) {
+//                        rowTimes.forEach { time ->
+//                            FilterChip(
+//                                selected = settings.roundTime == time,
+//                                onClick = {
+//                                    viewModel.updateSettings(settings.copy(roundTime = time))
+//                                },
+//                                label = { Text("${time}с") },
+//                                modifier = Modifier.size(65.dp),
+//                            )
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }
 
