@@ -12,6 +12,7 @@ object DifficultyPresets {
         Settings(gameSpeed = 1.0f, maxBeetlesCount = 10, boostSpawn = 10, roundTime = 90),
         Settings(gameSpeed = 1.5f, maxBeetlesCount = 15, boostSpawn = 15, roundTime = 60),
         Settings(gameSpeed = 2.0f, maxBeetlesCount = 20, boostSpawn = 30, roundTime = 5),
+        Settings(gameSpeed = 12.0f, maxBeetlesCount = 20, boostSpawn = 30, roundTime = 2)
     )
 
     fun normalize(level: Int): Int = level.coerceIn(MIN_LEVEL, MAX_LEVEL)
