@@ -11,7 +11,6 @@ import com.phoenix.beetles.feature.core.domain.port.RandomProvider
 import com.phoenix.beetles.feature.core.domain.port.ScoreRepository
 import com.phoenix.beetles.feature.core.domain.port.SfxPlayer
 import com.phoenix.beetles.feature.core.domain.repository.GameRepository
-import com.phoenix.beetles.feature.core.domain.usecase.AnalyzeDifficultyUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.HandleTapUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.RestartGameUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.SaveUserRecordUseCase
@@ -68,7 +67,6 @@ val gameModule = module {
     factory { HandleTapUseCase(get(), get()) }
     factory { UpdateWorldUseCase(get(), get()) }
     factory { RestartGameUseCase(get(), get(), get()) }
-    factory { AnalyzeDifficultyUseCase() }
     factoryOf(::SaveUserRecordUseCase)
     viewModelOf(::GameViewModel)
 }

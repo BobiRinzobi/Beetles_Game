@@ -13,7 +13,6 @@ import com.phoenix.beetles.feature.core.domain.port.DifficultyRepository
 import com.phoenix.beetles.feature.core.domain.port.ScoreRepository
 import com.phoenix.beetles.feature.core.domain.port.SfxPlayer
 import com.phoenix.beetles.feature.core.domain.repository.GameRepository
-import com.phoenix.beetles.feature.core.domain.usecase.AnalyzeDifficultyUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.HandleTapUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.RestartGameUseCase
 import com.phoenix.beetles.feature.core.domain.usecase.SaveUserRecordUseCase
@@ -49,8 +48,7 @@ class GameViewModel(
     private val saveUserRecordUseCase: SaveUserRecordUseCase,
     private val sfxPlayer: SfxPlayer,
     private val gameRepository: GameRepository,
-    private val settingsRepository: SettingsRepository,
-    private val analyzeDifficulty: AnalyzeDifficultyUseCase,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     private val baseConfig = baseGameConfig
@@ -230,40 +228,6 @@ class GameViewModel(
         spawnBugs.updateConfig(config)
         spawnBonus.updateConfig(config)
     }
-//    private suspend fun adaptDifficulty(
-//        scoresNewestFirst: List<Int>,
-//        activeUser: UserEntity?,
-//    ): String {
-//        difficultyLevel = (activeUser?.difficulty ?: difficultyRepository.getLevel())
-//            .coerceIn(MIN_DIFFICULTY_LEVEL, MAX_DIFFICULTY_LEVEL)
-//        val user = if (activeUser != null && activeUser.difficulty != difficultyLevel) {
-//            activeUser.copy(difficulty = difficultyLevel).also { gameRepository.updateUser(it) }
-//        } else {
-//            activeUser
-//        }
-//        val adjustment = analyzeDifficulty.execute(scoresNewestFirst)
-//
-//        val newLevel = (difficultyLevel + adjustment)
-//            .coerceIn(MIN_DIFFICULTY_LEVEL, MAX_DIFFICULTY_LEVEL)
-//
-//        val previousSettings = settingsRepository.getCurrentSettings()
-//        val updatedSettings = previousSettings.withDifficultyStep(adjustment)
-//
-//        difficultyLevel = newLevel
-//        profileSettings = updatedSettings
-//        if (user != null) {
-//            gameRepository.updateUser(user.withSettings(updatedSettings).copy(difficulty = difficultyLevel))
-//        } else {
-//            difficultyRepository.saveLevel(difficultyLevel)
-//        }
-//        settingsRepository.updateSettings(updatedSettings)
-//        config = baseConfig.withSettings(updatedSettings)
-//        spawnBugs.updateConfig(config)
-//        spawnBonus.updateConfig(config)
-//
-//        val directionText = if (adjustment > 0) "повышена" else "снижена"
-//        return "Сложность $directionText до уровня $difficultyLevel"
-//    }
 
     private fun Settings.withDifficultyStep(direction: Int): Settings = copy(
         gameSpeed = stepOption(gameSpeedOptions, gameSpeed, direction),
@@ -321,7 +285,6 @@ class GameViewModel(
 
                 val best = scoreRepository.loadBest()
                 val history = scoreRepository.loadRecentScores(user.id)
-//                val difficultyNotice = adaptDifficulty(history, user)
                 val average = if (history.isNotEmpty()) {
                     history.average().toInt()
                 } else {
